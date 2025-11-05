@@ -241,10 +241,79 @@ TEMPLATES = [
 ```
 
 # 21 Crear vistas en views.py
-
-*(ya están en tu versión anterior)*
-
----
+    
+    ```python
+    from django.shortcuts import render, redirect, get_object_or_404
+    from .models import Nutriologo
+    
+    # ============================================================
+    # 🥕 VISTA DE INICIO
+    # ============================================================
+    def inicio(request):
+        return render(request, 'app_clinicanutricional/inicio.html')
+    
+    
+    # ============================================================
+    # 🌿 LISTAR NUTRIÓLOGOS
+    # ============================================================
+    def lista_nutriologos(request):
+        nutriologos = Nutriologo.objects.all()
+        return render(request, 'app_clinicanutricional/lista_nutriologos.html', {'nutriologos': nutriologos})
+    
+    
+    # ============================================================
+    # 🧡 CREAR NUTRIÓLOGO
+    # ============================================================
+    def crear_nutriologo(request):
+        if request.method == 'POST':
+            nombre = request.POST['nombre']
+            apellido = request.POST['apellido']
+            correo = request.POST['correo']
+            direccion = request.POST['direccion']
+            telefono = request.POST['telefono']
+            experiencia = request.POST['experiencia']
+            especialidad = request.POST['especialidad']
+    
+            Nutriologo.objects.create(
+                nombre=nombre,
+                apellido=apellido,
+                correo=correo,
+                direccion=direccion,
+                telefono=telefono,
+                experiencia=experiencia,
+                especialidad=especialidad
+            )
+            return redirect('lista_nutriologos')
+        return render(request, 'app_clinicanutricional/crear_nutriologo.html')
+    
+    
+    # ============================================================
+    # 🌸 EDITAR NUTRIÓLOGO
+    # ============================================================
+    def editar_nutriologo(request, id):
+        nutriologo = get_object_or_404(Nutriologo, id=id)
+        if request.method == 'POST':
+            nutriologo.nombre = request.POST['nombre']
+            nutriologo.apellido = request.POST['apellido']
+            nutriologo.correo = request.POST['correo']
+            nutriologo.direccion = request.POST['direccion']
+            nutriologo.telefono = request.POST['telefono']
+            nutriologo.experiencia = request.POST['experiencia']
+            nutriologo.especialidad = request.POST['especialidad']
+            nutriologo.save()
+            return redirect('lista_nutriologos')
+        return render(request, 'app_clinicanutricional/editar_nutriologo.html', {'nutriologo': nutriologo})
+    
+    
+    # ============================================================
+    # ❌ ELIMINAR NUTRIÓLOGO
+    # ============================================================
+    def eliminar_nutriologo(request, id):
+        nutriologo = get_object_or_404(Nutriologo, id=id)
+        if request.method == 'POST':
+            nutriologo.delete()
+            return redirect('lista_nutriologos')
+        return render(request, 'app_clinicanutricional/eliminar_nutriologo.html', {'nutriologo': nutriologo})
 
 # 22 Crear los archivos HTML
 
@@ -508,6 +577,3 @@ git commit -m "Proyecto Clinicanutricional con CRUD Nutriologos completo"
 🩷 Modelos de Pacientes y Citas listos para continuar
 🌿 Colores suaves y estilo “Baby Carrots”
 
----
-
-¿Quieres que te lo exporte también en un archivo `.md` ya formateado para que lo subas directo a tu GitHub, guapa?
