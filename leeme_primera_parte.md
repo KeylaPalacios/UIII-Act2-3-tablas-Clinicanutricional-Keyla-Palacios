@@ -55,28 +55,78 @@ Dentro de backend_clinicanutricional/settings.py agrega:
         'app_clinicanutricional',
     ]
 
-# 12 Crear modelo models.py
-
-Ubicación: app_clinicanutricional/models.py
-
+# 12 Archivo models.py
 from django.db import models
 
 # ==========================================
 # MODELO: NUTRIÓLOGOS
 # ==========================================
-    class Nutriologo(models.Model):
-        nombre = models.CharField(max_length=50)
-        apellido = models.CharField(max_length=50)
-        correo = models.EmailField(unique=True)
-        direccion = models.CharField(max_length=100)
-        telefono = models.CharField(max_length=10)
-        experiencia = models.CharField(max_length=100)
-        especialidad = models.CharField(max_length=100)
-    
-        def __str__(self):
-            return f"{self.nombre} {self.apellido}"
+class Nutriologo(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    correo = models.EmailField(unique=True)
+    direccion = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=10)
+    experiencia = models.PositiveIntegerField(help_text="Años de experiencia")
+    especialidad = models.CharField(max_length=100)
 
-#1 3 Migrar base de datos
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
+
+    class Meta:
+        verbose_name = "Nutriólogo"
+        verbose_name_plural = "Nutriólogos"
+
+
+# ==========================================
+# MODELO: PACIENTES
+# ==========================================
+class Paciente(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    telefono = models.CharField(max_length=10)
+    fechnacimiento = models.DateField()
+    correo = models.EmailField(unique=True)
+    direccion = models.CharField(max_length=100)
+    sexo = models.CharField(max_length=10, choices=[
+        ('Femenino', 'Femenino'),
+        ('Masculino', 'Masculino')
+    ])
+    id_nut = models.ForeignKey(Nutriologo, on_delete=models.CASCADE, related_name='pacientes')
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
+
+    class Meta:
+        verbose_name = "Paciente"
+        verbose_name_plural = "Pacientes"
+
+
+# ==========================================
+# MODELO: CITAS
+# ==========================================
+class Cita(models.Model):
+    fecha = models.DateField()
+    horario = models.TimeField()
+    motivo = models.CharField(max_length=200)
+    estado = models.CharField(max_length=50, choices=[
+        ('pendiente', 'Pendiente'),
+        ('confirmada', 'Confirmada'),
+        ('cancelada', 'Cancelada'),
+        ('finalizada', 'Finalizada'),
+    ])
+    observaciones = models.TextField(blank=True, null=True)
+    duracion = models.PositiveIntegerField(help_text="Duración en minutos")
+    id_nut = models.ForeignKey(Nutriologo, on_delete=models.CASCADE, related_name='citas')
+
+    def __str__(self):
+        return f"Cita con {self.id_nut.nombre} el {self.fecha} a las {self.horario}"
+
+    class Meta:
+        verbose_name = "Cita"
+        verbose_name_plural = "Citas"
+
+# 13 Migrar base de datos
 python manage.py makemigrations
 python manage.py migrate
 
