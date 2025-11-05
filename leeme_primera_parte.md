@@ -260,63 +260,63 @@ Ubicación: app_clinicanutricional/views.py
             return render(request, 'app_clinicanutricional/eliminar_nutriologo.html', {'nutriologo': nutriologo})
 
 # 22 Crear los archivos HTML
-    📄 inicio.html
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <title>Inicio - Baby Carrots</title>
-            <style>
-                body { background-color: #F6BBB7; color: #5b8740; font-family: 'Segoe UI'; text-align: center; }
-                h1 { color: #E5645E; }
-                a { background: #E5645E; color: white; padding: 10px 15px; border-radius: 10px; text-decoration: none; }
-                a:hover { background: #5b8740; }
-            </style>
-        </head>
-        <body>
-            <h1>🥕 Bienvenida a Baby Carrots</h1>
-            <p>Tu clínica nutricional con amor y bienestar.</p>
-            <a href="{% url 'lista_nutriologos' %}">Ver Nutriólogos</a>
-        </body>
-        </html>
+        📄 inicio.html
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Inicio - Baby Carrots</title>
+                <style>
+                    body { background-color: #F6BBB7; color: #5b8740; font-family: 'Segoe UI'; text-align: center; }
+                    h1 { color: #E5645E; }
+                    a { background: #E5645E; color: white; padding: 10px 15px; border-radius: 10px; text-decoration: none; }
+                    a:hover { background: #5b8740; }
+                </style>
+            </head>
+            <body>
+                <h1>🥕 Bienvenida a Baby Carrots</h1>
+                <p>Tu clínica nutricional con amor y bienestar.</p>
+                <a href="{% url 'lista_nutriologos' %}">Ver Nutriólogos</a>
+            </body>
+            </html>
 
 📄 lista_nutriologos.html
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <title>Nutriólogos - Baby Carrots</title>
-            <style>
-                body { background: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
-                table { margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }
-                th, td { border: 1px solid #E5645E; padding: 10px; }
-                a { color: white; background: #E5645E; padding: 5px 10px; border-radius: 5px; text-decoration: none; }
-                a:hover { background: #5b8740; }
-            </style>
-        </head>
-        <body>
-            <h1>Lista de Nutriólogos</h1>
-            <a href="{% url 'crear_nutriologo' %}">➕ Agregar Nutriólogo</a>
-            <table>
-                <tr>
-                    <th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Especialidad</th><th>Acciones</th>
-                </tr>
-                {% for n in nutriologos %}
-                <tr>
-                    <td>{{ n.nombre }}</td>
-                    <td>{{ n.apellido }}</td>
-                    <td>{{ n.correo }}</td>
-                    <td>{{ n.telefono }}</td>
-                    <td>{{ n.especialidad }}</td>
-                    <td>
-                        <a href="{% url 'editar_nutriologo' n.id %}">✏️ Editar</a>
-                        <a href="{% url 'eliminar_nutriologo' n.id %}">❌ Eliminar</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </body>
-        </html>
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Nutriólogos - Baby Carrots</title>
+                <style>
+                    body { background: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
+                    table { margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }
+                    th, td { border: 1px solid #E5645E; padding: 10px; }
+                    a { color: white; background: #E5645E; padding: 5px 10px; border-radius: 5px; text-decoration: none; }
+                    a:hover { background: #5b8740; }
+                </style>
+            </head>
+            <body>
+                <h1>Lista de Nutriólogos</h1>
+                <a href="{% url 'crear_nutriologo' %}">➕ Agregar Nutriólogo</a>
+                <table>
+                    <tr>
+                        <th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Especialidad</th><th>Acciones</th>
+                    </tr>
+                    {% for n in nutriologos %}
+                    <tr>
+                        <td>{{ n.nombre }}</td>
+                        <td>{{ n.apellido }}</td>
+                        <td>{{ n.correo }}</td>
+                        <td>{{ n.telefono }}</td>
+                        <td>{{ n.especialidad }}</td>
+                        <td>
+                            <a href="{% url 'editar_nutriologo' n.id %}">✏️ Editar</a>
+                            <a href="{% url 'eliminar_nutriologo' n.id %}">❌ Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </body>
+            </html>
 
 📄 crear_nutriologo.html
         <!DOCTYPE html>
