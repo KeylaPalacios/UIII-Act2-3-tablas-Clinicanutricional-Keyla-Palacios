@@ -209,76 +209,76 @@ Agrega:
 
 Ubicación: app_clinicanutricional/views.py
 
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Nutriologo
-
-# Página de inicio
-    def inicio(request):
-        return render(request, 'app_clinicanutricional/inicio.html')
-
-# Listar nutriólogos
-    def lista_nutriologos(request):
-        nutriologos = Nutriologo.objects.all()
-        return render(request, 'app_clinicanutricional/lista_nutriologos.html', {'nutriologos': nutriologos})
-
-# Crear nutriólogo
-    def crear_nutriologo(request):
-        if request.method == 'POST':
-            Nutriologo.objects.create(
-                nombre=request.POST['nombre'],
-                apellido=request.POST['apellido'],
-                correo=request.POST['correo'],
-                direccion=request.POST['direccion'],
-                telefono=request.POST['telefono'],
-                experiencia=request.POST['experiencia'],
-                especialidad=request.POST['especialidad']
-            )
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/crear_nutriologo.html')
-
-# Editar nutriólogo
-    def editar_nutriologo(request, id):
-        nutriologo = get_object_or_404(Nutriologo, id=id)
-        if request.method == 'POST':
-            nutriologo.nombre = request.POST['nombre']
-            nutriologo.apellido = request.POST['apellido']
-            nutriologo.correo = request.POST['correo']
-            nutriologo.direccion = request.POST['direccion']
-            nutriologo.telefono = request.POST['telefono']
-            nutriologo.experiencia = request.POST['experiencia']
-            nutriologo.especialidad = request.POST['especialidad']
-            nutriologo.save()
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/editar_nutriologo.html', {'nutriologo': nutriologo})
-
-# Eliminar nutriólogo
-    def eliminar_nutriologo(request, id):
-        nutriologo = get_object_or_404(Nutriologo, id=id)
-        if request.method == 'POST':
-            nutriologo.delete()
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/eliminar_nutriologo.html', {'nutriologo': nutriologo})
+    from django.shortcuts import render, redirect, get_object_or_404
+    from .models import Nutriologo
+    
+    # Página de inicio
+        def inicio(request):
+            return render(request, 'app_clinicanutricional/inicio.html')
+    
+    # Listar nutriólogos
+        def lista_nutriologos(request):
+            nutriologos = Nutriologo.objects.all()
+            return render(request, 'app_clinicanutricional/lista_nutriologos.html', {'nutriologos': nutriologos})
+    
+    # Crear nutriólogo
+        def crear_nutriologo(request):
+            if request.method == 'POST':
+                Nutriologo.objects.create(
+                    nombre=request.POST['nombre'],
+                    apellido=request.POST['apellido'],
+                    correo=request.POST['correo'],
+                    direccion=request.POST['direccion'],
+                    telefono=request.POST['telefono'],
+                    experiencia=request.POST['experiencia'],
+                    especialidad=request.POST['especialidad']
+                )
+                return redirect('lista_nutriologos')
+            return render(request, 'app_clinicanutricional/crear_nutriologo.html')
+    
+    # Editar nutriólogo
+        def editar_nutriologo(request, id):
+            nutriologo = get_object_or_404(Nutriologo, id=id)
+            if request.method == 'POST':
+                nutriologo.nombre = request.POST['nombre']
+                nutriologo.apellido = request.POST['apellido']
+                nutriologo.correo = request.POST['correo']
+                nutriologo.direccion = request.POST['direccion']
+                nutriologo.telefono = request.POST['telefono']
+                nutriologo.experiencia = request.POST['experiencia']
+                nutriologo.especialidad = request.POST['especialidad']
+                nutriologo.save()
+                return redirect('lista_nutriologos')
+            return render(request, 'app_clinicanutricional/editar_nutriologo.html', {'nutriologo': nutriologo})
+    
+    # Eliminar nutriólogo
+        def eliminar_nutriologo(request, id):
+            nutriologo = get_object_or_404(Nutriologo, id=id)
+            if request.method == 'POST':
+                nutriologo.delete()
+                return redirect('lista_nutriologos')
+            return render(request, 'app_clinicanutricional/eliminar_nutriologo.html', {'nutriologo': nutriologo})
 
 # 22 Crear los archivos HTML
-📄 inicio.html
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Inicio - Baby Carrots</title>
-        <style>
-            body { background-color: #F6BBB7; color: #5b8740; font-family: 'Segoe UI'; text-align: center; }
-            h1 { color: #E5645E; }
-            a { background: #E5645E; color: white; padding: 10px 15px; border-radius: 10px; text-decoration: none; }
-            a:hover { background: #5b8740; }
-        </style>
-    </head>
-    <body>
-        <h1>🥕 Bienvenida a Baby Carrots</h1>
-        <p>Tu clínica nutricional con amor y bienestar.</p>
-        <a href="{% url 'lista_nutriologos' %}">Ver Nutriólogos</a>
-    </body>
-    </html>
+    📄 inicio.html
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Inicio - Baby Carrots</title>
+            <style>
+                body { background-color: #F6BBB7; color: #5b8740; font-family: 'Segoe UI'; text-align: center; }
+                h1 { color: #E5645E; }
+                a { background: #E5645E; color: white; padding: 10px 15px; border-radius: 10px; text-decoration: none; }
+                a:hover { background: #5b8740; }
+            </style>
+        </head>
+        <body>
+            <h1>🥕 Bienvenida a Baby Carrots</h1>
+            <p>Tu clínica nutricional con amor y bienestar.</p>
+            <a href="{% url 'lista_nutriologos' %}">Ver Nutriólogos</a>
+        </body>
+        </html>
 
 📄 lista_nutriologos.html
     <!DOCTYPE html>
