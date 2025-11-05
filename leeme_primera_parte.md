@@ -209,12 +209,12 @@ Agrega:
 
 Ubicación: app_clinicanutricional/views.py
 
-    from django.shortcuts import render, redirect, get_object_or_404
-    from .models import Nutriologo
+        from django.shortcuts import render, redirect, get_object_or_404
+        from .models import Nutriologo
     
     # Página de inicio
-        def inicio(request):
-            return render(request, 'app_clinicanutricional/inicio.html')
+            def inicio(request):
+                return render(request, 'app_clinicanutricional/inicio.html')
     
     # Listar nutriólogos
         def lista_nutriologos(request):
@@ -281,126 +281,126 @@ Ubicación: app_clinicanutricional/views.py
         </html>
 
 📄 lista_nutriologos.html
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Nutriólogos - Baby Carrots</title>
-        <style>
-            body { background: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
-            table { margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }
-            th, td { border: 1px solid #E5645E; padding: 10px; }
-            a { color: white; background: #E5645E; padding: 5px 10px; border-radius: 5px; text-decoration: none; }
-            a:hover { background: #5b8740; }
-        </style>
-    </head>
-    <body>
-        <h1>Lista de Nutriólogos</h1>
-        <a href="{% url 'crear_nutriologo' %}">➕ Agregar Nutriólogo</a>
-        <table>
-            <tr>
-                <th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Especialidad</th><th>Acciones</th>
-            </tr>
-            {% for n in nutriologos %}
-            <tr>
-                <td>{{ n.nombre }}</td>
-                <td>{{ n.apellido }}</td>
-                <td>{{ n.correo }}</td>
-                <td>{{ n.telefono }}</td>
-                <td>{{ n.especialidad }}</td>
-                <td>
-                    <a href="{% url 'editar_nutriologo' n.id %}">✏️ Editar</a>
-                    <a href="{% url 'eliminar_nutriologo' n.id %}">❌ Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </body>
-    </html>
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Nutriólogos - Baby Carrots</title>
+            <style>
+                body { background: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
+                table { margin: 20px auto; border-collapse: collapse; width: 80%; background: white; }
+                th, td { border: 1px solid #E5645E; padding: 10px; }
+                a { color: white; background: #E5645E; padding: 5px 10px; border-radius: 5px; text-decoration: none; }
+                a:hover { background: #5b8740; }
+            </style>
+        </head>
+        <body>
+            <h1>Lista de Nutriólogos</h1>
+            <a href="{% url 'crear_nutriologo' %}">➕ Agregar Nutriólogo</a>
+            <table>
+                <tr>
+                    <th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Especialidad</th><th>Acciones</th>
+                </tr>
+                {% for n in nutriologos %}
+                <tr>
+                    <td>{{ n.nombre }}</td>
+                    <td>{{ n.apellido }}</td>
+                    <td>{{ n.correo }}</td>
+                    <td>{{ n.telefono }}</td>
+                    <td>{{ n.especialidad }}</td>
+                    <td>
+                        <a href="{% url 'editar_nutriologo' n.id %}">✏️ Editar</a>
+                        <a href="{% url 'eliminar_nutriologo' n.id %}">❌ Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </body>
+        </html>
 
 📄 crear_nutriologo.html
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Crear Nutriólogo</title>
-        <style>
-            body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
-            input { margin: 5px; padding: 8px; border-radius: 8px; border: 1px solid #E5645E; }
-            button { background: #E5645E; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
-            button:hover { background: #5b8740; }
-        </style>
-    </head>
-    <body>
-        <h1>Agregar Nutriólogo</h1>
-        <form method="post">{% csrf_token %}
-            <input type="text" name="nombre" placeholder="Nombre" required><br>
-            <input type="text" name="apellido" placeholder="Apellido" required><br>
-            <input type="email" name="correo" placeholder="Correo" required><br>
-            <input type="text" name="direccion" placeholder="Dirección" required><br>
-            <input type="text" name="telefono" placeholder="Teléfono" required><br>
-            <input type="text" name="experiencia" placeholder="Experiencia" required><br>
-            <input type="text" name="especialidad" placeholder="Especialidad" required><br>
-            <button type="submit">Guardar</button>
-        </form>
-    </body>
-    </html>
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Crear Nutriólogo</title>
+            <style>
+                body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
+                input { margin: 5px; padding: 8px; border-radius: 8px; border: 1px solid #E5645E; }
+                button { background: #E5645E; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+                button:hover { background: #5b8740; }
+            </style>
+        </head>
+        <body>
+            <h1>Agregar Nutriólogo</h1>
+            <form method="post">{% csrf_token %}
+                <input type="text" name="nombre" placeholder="Nombre" required><br>
+                <input type="text" name="apellido" placeholder="Apellido" required><br>
+                <input type="email" name="correo" placeholder="Correo" required><br>
+                <input type="text" name="direccion" placeholder="Dirección" required><br>
+                <input type="text" name="telefono" placeholder="Teléfono" required><br>
+                <input type="text" name="experiencia" placeholder="Experiencia" required><br>
+                <input type="text" name="especialidad" placeholder="Especialidad" required><br>
+                <button type="submit">Guardar</button>
+            </form>
+        </body>
+        </html>
 
 📄 editar_nutriologo.html
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Editar Nutriólogo</title>
-        <style>
-            body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
-            input { margin: 5px; padding: 8px; border-radius: 8px; border: 1px solid #E5645E; }
-            button { background: #E5645E; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
-            button:hover { background: #5b8740; }
-        </style>
-    </head>
-    <body>
-        <h1>Editar Nutriólogo</h1>
-        <form method="post">{% csrf_token %}
-            <input type="text" name="nombre" value="{{ nutriologo.nombre }}"><br>
-            <input type="text" name="apellido" value="{{ nutriologo.apellido }}"><br>
-            <input type="email" name="correo" value="{{ nutriologo.correo }}"><br>
-            <input type="text" name="direccion" value="{{ nutriologo.direccion }}"><br>
-            <input type="text" name="telefono" value="{{ nutriologo.telefono }}"><br>
-            <input type="text" name="experiencia" value="{{ nutriologo.experiencia }}"><br>
-            <input type="text" name="especialidad" value="{{ nutriologo.especialidad }}"><br>
-            <button type="submit">Actualizar</button>
-        </form>
-    </body>
-    </html>
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Editar Nutriólogo</title>
+            <style>
+                body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
+                input { margin: 5px; padding: 8px; border-radius: 8px; border: 1px solid #E5645E; }
+                button { background: #E5645E; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+                button:hover { background: #5b8740; }
+            </style>
+        </head>
+        <body>
+            <h1>Editar Nutriólogo</h1>
+            <form method="post">{% csrf_token %}
+                <input type="text" name="nombre" value="{{ nutriologo.nombre }}"><br>
+                <input type="text" name="apellido" value="{{ nutriologo.apellido }}"><br>
+                <input type="email" name="correo" value="{{ nutriologo.correo }}"><br>
+                <input type="text" name="direccion" value="{{ nutriologo.direccion }}"><br>
+                <input type="text" name="telefono" value="{{ nutriologo.telefono }}"><br>
+                <input type="text" name="experiencia" value="{{ nutriologo.experiencia }}"><br>
+                <input type="text" name="especialidad" value="{{ nutriologo.especialidad }}"><br>
+                <button type="submit">Actualizar</button>
+            </form>
+        </body>
+        </html>
 
 📄 eliminar_nutriologo.html
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Eliminar Nutriólogo</title>
-        <style>
-            body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
-            .card { background: white; border: 2px solid #E5645E; padding: 20px; border-radius: 15px; display: inline-block; margin-top: 50px; }
-            button, a { margin: 5px; padding: 10px 20px; border-radius: 8px; text-decoration: none; }
-            button { background: #E5645E; color: white; border: none; }
-            button:hover { background: #5b8740; }
-            a { background: #5b8740; color: white; }
-            a:hover { background: #E5645E; }
-        </style>
-    </head>
-    <body>
-        <div class="card">
-            <h2>¿Eliminar a {{ nutriologo.nombre }} {{ nutriologo.apellido }}?</h2>
-            <p>Esta acción no se puede deshacer.</p>
-            <form method="post">{% csrf_token %}
-                <button type="submit">Sí, eliminar</button>
-                <a href="{% url 'lista_nutriologos' %}">Cancelar</a>
-            </form>
-        </div>
-    </body>
-    </html>
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Eliminar Nutriólogo</title>
+            <style>
+                body { background-color: #F6BBB7; font-family: 'Segoe UI'; color: #5b8740; text-align: center; }
+                .card { background: white; border: 2px solid #E5645E; padding: 20px; border-radius: 15px; display: inline-block; margin-top: 50px; }
+                button, a { margin: 5px; padding: 10px 20px; border-radius: 8px; text-decoration: none; }
+                button { background: #E5645E; color: white; border: none; }
+                button:hover { background: #5b8740; }
+                a { background: #5b8740; color: white; }
+                a:hover { background: #E5645E; }
+            </style>
+        </head>
+        <body>
+            <div class="card">
+                <h2>¿Eliminar a {{ nutriologo.nombre }} {{ nutriologo.apellido }}?</h2>
+                <p>Esta acción no se puede deshacer.</p>
+                <form method="post">{% csrf_token %}
+                    <button type="submit">Sí, eliminar</button>
+                    <a href="{% url 'lista_nutriologos' %}">Cancelar</a>
+                </form>
+            </div>
+        </body>
+        </html>
 
 # 23 Probar CRUD completo
 
