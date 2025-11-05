@@ -283,8 +283,6 @@ inicio.html
 <div class="text-center">
   <h1 style="color:#E5645E;">Bienvenida a la Clínica Nutricional "Baby Carrots"</h1>
   <p class="mt-3">Sistema para administrar Nutriólogos, Pacientes y Citas.</p>
-  <img src="https://img.freepik.com/vector-gratis/ilustracion-plana-dia-nutricionista_23-2149346258.jpg" 
-       alt="Clínica Nutricional" class="img-fluid rounded mt-3" width="60%">
 </div>
 {% endblock %}
 
