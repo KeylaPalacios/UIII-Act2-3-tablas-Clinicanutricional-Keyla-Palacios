@@ -1,88 +1,114 @@
-## Proyecto: Clinicanutricional
+# PROYECTO: Clinicanutricional
 
-# Lenguaje: Python
+**Lenguaje:** Python
 
-# Framework: Django
+**Framework:** Django
 
-# Editor: Visual Studio Code
+**Editor:** Visual Studio Code
 
 ---
 
-# 1 Crear carpeta del proyecto
+## PARTE 1 — PROCEDIMIENTO COMPLETO (UIII_Clinicanutricional_8313)
 
-```bash
-mkdir UIII_Clinicanutricional_8313
-cd UIII_Clinicanutricional_8313
+> A continuación tienes el procedimiento paso a paso, con los comandos y todos los archivos que debes crear. Puedes copiar/pegar directamente en VS Code.
+
+### 1) Crear la carpeta del proyecto
+
+1. Abre el Explorador de archivos de tu sistema.
+2. Crea una nueva carpeta con el nombre:
+
+```
+UIII_Clinicanutricional_8313
 ```
 
-# 2 Abrir VS Code en la carpeta
+Guárdala en Documentos o Escritorio (o donde prefieras).
 
-```bash
-code .
-```
+### 2) Abrir VS Code sobre la carpeta
 
-# 3 Abrir la terminal de VS Code
+1. Abre Visual Studio Code.
+2. Menú **Archivo → Abrir carpeta** y selecciona `UIII_Clinicanutricional_8313`.
 
-Menú superior → Terminal → New Terminal
-O atajo: Ctrl + ñ
+### 3) Abrir la terminal en VS Code
 
-# 4 Crear el entorno virtual “.venv”
+En la barra superior: **Terminal → Nueva terminal**. Se abrirá una terminal en la parte inferior apuntando a la carpeta del proyecto.
+
+### 4) Crear el entorno virtual `.venv` desde la terminal
+
+En la terminal ejecuta:
 
 ```bash
 python -m venv .venv
 ```
 
-# 5 Activar entorno virtual
+Eso crea la carpeta oculta `.venv` dentro del proyecto.
+
+### 5) Activar el entorno virtual
+
+**Windows (PowerShell o CMD)**:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-# 6 Seleccionar el intérprete de Python
+Verás `(.venv)` al inicio del prompt si se activó correctamente.
 
-Presiona Ctrl + Shift + P → “Python: Select Interpreter” → elige el que termina en .venv
+### 6) Activar intérprete de Python en VS Code
 
-# 7 Instalar Django
+Presiona `Ctrl + Shift + P` → escribe `Python: Select Interpreter` → elige el intérprete:
+
+```
+.venv\Scripts\python.exe
+```
+
+### 7) Instalar Django
+
+Con el entorno activado ejecuta:
 
 ```bash
 pip install django
 ```
 
-# 8 Crear el proyecto principal
+Verifica:
+
+```bash
+django-admin --version
+```
+
+### 8) Crear el proyecto principal `backend_clinicanutricional` sin duplicar carpeta
+
+Desde la terminal, estando en la raíz `UIII_Clinicanutricional_8313`, ejecuta:
 
 ```bash
 django-admin startproject backend_clinicanutricional .
 ```
 
-# 9 Probar el servidor
+El punto `.` evita crear una carpeta extra.
+
+### 9) Ejecutar servidor en el puerto 8313
+
+Inicia el servidor con:
 
 ```bash
 python manage.py runserver 8313
 ```
 
-Abrir en el navegador 👉 [http://127.0.0.1:8313/](http://127.0.0.1:8313/)
+### 10) Copiar y pegar el enlace en el navegador
 
-# 10 Crear aplicación
+Abre en tu navegador: `http://127.0.0.1:8313/` — deberías ver la página de bienvenida de Django.
+
+### 11) Crear la aplicación `app_clinicanutricional`
+
+En la terminal ejecuta:
 
 ```bash
 python manage.py startapp app_clinicanutricional
 ```
 
-# 11 Registrar la app en settings.py
+---
 
-```python
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'app_clinicanutricional',
-]
-```
+## 12) Archivo `app_clinicanutricional/models.py`
 
-# 12 Archivo models.py
+Pega el siguiente código (este es el modelo que nos proporcionaste, formateado correctamente):
 
 ```python
 from django.db import models
@@ -106,9 +132,8 @@ class Nutriologo(models.Model):
         verbose_name = "Nutriólogo"
         verbose_name_plural = "Nutriólogos"
 
-
 # ==========================================
-# MODELO: PACIENTES
+# MODELO: PACIENTES (pendiente de usar por ahora)
 # ==========================================
 class Paciente(models.Model):
     nombre = models.CharField(max_length=50)
@@ -117,10 +142,7 @@ class Paciente(models.Model):
     fechnacimiento = models.DateField()
     correo = models.EmailField(unique=True)
     direccion = models.CharField(max_length=100)
-    sexo = models.CharField(max_length=10, choices=[
-        ('Femenino', 'Femenino'),
-        ('Masculino', 'Masculino')
-    ])
+    sexo = models.CharField(max_length=10, choices=[('Femenino', 'Femenino'), ('Masculino', 'Masculino')])
     id_nut = models.ForeignKey(Nutriologo, on_delete=models.CASCADE, related_name='pacientes')
 
     def __str__(self):
@@ -130,9 +152,8 @@ class Paciente(models.Model):
         verbose_name = "Paciente"
         verbose_name_plural = "Pacientes"
 
-
 # ==========================================
-# MODELO: CITAS
+# MODELO: CITAS (pendiente de usar por ahora)
 # ==========================================
 class Cita(models.Model):
     fecha = models.DateField()
@@ -156,54 +177,352 @@ class Cita(models.Model):
         verbose_name_plural = "Citas"
 ```
 
-# 13 Migrar base de datos
+---
+
+## 12.5) Realizar las migraciones
+
+Después de guardar `models.py`, crea y aplica migraciones:
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-# 14 Crear superusuario
+---
 
-```bash
-python manage.py createsuperuser
-```
+## 13) Empezamos trabajando con el MODELO: NUTRIÓLOGOS
 
-# 15 Registrar modelo en admin.py
+Vamos a crear las vistas y plantillas para el CRUD de Nutriólogos (sin `forms.py`, usando POST directo en templates).
+
+## 14) `app_clinicanutricional/views.py` (añade estas funciones)
 
 ```python
-from django.contrib import admin
-from .models import Nutriologo, Paciente, Cita
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Nutriologo
 
-admin.site.register(Nutriologo)
-admin.site.register(Paciente)
-admin.site.register(Cita)
+# Página de inicio
+def inicio_clinicanutricional(request):
+    return render(request, 'inicio.html')
+
+# Agregar nutriólogo
+def agregar_nutriologo(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        correo = request.POST.get('correo')
+        direccion = request.POST.get('direccion')
+        telefono = request.POST.get('telefono')
+        experiencia = request.POST.get('experiencia')
+        especialidad = request.POST.get('especialidad')
+
+        nuevo = Nutriologo(
+            nombre=nombre,
+            apellido=apellido,
+            correo=correo,
+            direccion=direccion,
+            telefono=telefono,
+            experiencia=experiencia,
+            especialidad=especialidad
+        )
+        nuevo.save()
+        return redirect('ver_nutriologos')
+
+    return render(request, 'nutriologos/agregar_nutriologo.html')
+
+# Ver nutriólogos
+def ver_nutriologos(request):
+    nutris = Nutriologo.objects.all()
+    return render(request, 'nutriologos/ver_nutriologos.html', {'nutris': nutris})
+
+# Actualizar nutriólogo (formulario de edición)
+def actualizar_nutriologo(request, id):
+    nutri = get_object_or_404(Nutriologo, pk=id)
+    return render(request, 'nutriologos/actualizar_nutriologo.html', {'nutri': nutri})
+
+# Realizar actualización
+def realizar_actualizacion_nutriologo(request, id):
+    nutri = get_object_or_404(Nutriologo, pk=id)
+    if request.method == 'POST':
+        nutri.nombre = request.POST.get('nombre')
+        nutri.apellido = request.POST.get('apellido')
+        nutri.correo = request.POST.get('correo')
+        nutri.direccion = request.POST.get('direccion')
+        nutri.telefono = request.POST.get('telefono')
+        nutri.experiencia = request.POST.get('experiencia')
+        nutri.especialidad = request.POST.get('especialidad')
+        nutri.save()
+        return redirect('ver_nutriologos')
+    return redirect('ver_nutriologos')
+
+# Borrar nutriólogo
+def borrar_nutriologo(request, id):
+    nutri = get_object_or_404(Nutriologo, pk=id)
+    if request.method == 'POST':
+        nutri.delete()
+        return redirect('ver_nutriologos')
+    return render(request, 'nutriologos/borrar_nutriologo.html', {'nutri': nutri})
 ```
 
-# 16 Probar en el panel de administración
+---
 
-```bash
-python manage.py runserver 8313
+## 15) Crear la carpeta `templates` dentro de `app_clinicanutricional`
+
+Ruta:
+
+```
+app_clinicanutricional/templates/
 ```
 
-👉 [http://127.0.0.1:8313/admin/](http://127.0.0.1:8313/admin/)
+---
 
-# 17 Crear archivo urls.py
+## 16) Archivos HTML dentro de `templates`
+
+Crea los archivos: `base.html`, `header.html`, `navbar.html`, `footer.html`, `inicio.html`.
+
+### 17) `base.html` (con Bootstrap CSS y JS)
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clínica Nutricional</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    {% include 'header.html' %}
+    {% include 'navbar.html' %}
+
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+```
+
+### 18) `navbar.html` (con iconos en opciones principales)
+
+```html
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#5b8740;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">🥕 Sistema de Administración Clínica Nutricional</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/">🏠 Inicio</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">👩‍⚕️ Nutriólogos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/agregar_nutriologo/">Agregar Nutriólogo</a></li>
+            <li><a class="dropdown-item" href="/ver_nutriologos/">Ver Nutriólogos</a></li>
+            <li><a class="dropdown-item" href="#">Actualizar Nutriólogo</a></li>
+            <li><a class="dropdown-item" href="#">Borrar Nutriólogo</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">👥 Pacientes</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Agregar Paciente</a></li>
+            <li><a class="dropdown-item" href="#">Ver Pacientes</a></li>
+            <li><a class="dropdown-item" href="#">Actualizar Paciente</a></li>
+            <li><a class="dropdown-item" href="#">Borrar Paciente</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">📅 Citas</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Agregar Cita</a></li>
+            <li><a class="dropdown-item" href="#">Ver Citas</a></li>
+            <li><a class="dropdown-item" href="#">Actualizar Cita</a></li>
+            <li><a class="dropdown-item" href="#">Borrar Cita</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+```
+
+> Nota: los iconos sólo están en las opciones principales (Nutriólogos, Pacientes, Citas) como solicitaste.
+
+### 19) `footer.html` (fijo al final, con derechos y autor)
+
+```html
+<footer class="bg-dark text-white text-center py-3 fixed-bottom">
+    <p>© <span id="anio"></span> Creado por Keyla Palacios, Cbtis 128</p>
+</footer>
+<script>
+    document.getElementById("anio").innerText = new Date().getFullYear();
+</script>
+```
+
+### 20) `inicio.html` (info del sistema + imagen desde la web)
+
+```django
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-3">Bienvenido al Sistema de Administración — Clínica Nutricional</h1>
+    <p class="lead">Gestiona Nutriólogos, Pacientes y Citas de forma sencilla.</p>
+    <img src="https://images.unsplash.com/photo-1600180758890-7a5d7f5b5b7f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Clínica Nutricional" class="img-fluid" style="max-width:500px;">
+</div>
+{% endblock %}
+```
+
+---
+
+## 21) Crear subcarpeta `nutriologos` dentro de `templates`
+
+Ruta:
+
+```
+app_clinicanutricional/templates/nutriologos/
+```
+
+## 22) Archivos dentro de `templates/nutriologos/`
+
+Crea los siguientes archivos con este código:
+
+### `agregar_nutriologo.html`
+
+```django
+{% extends 'base.html' %}
+{% block content %}
+<h2>Agregar Nutriólogo</h2>
+<form method="POST">
+  {% csrf_token %}
+  <input type="text" name="nombre" placeholder="Nombre" class="form-control mb-2">
+  <input type="text" name="apellido" placeholder="Apellido" class="form-control mb-2">
+  <input type="email" name="correo" placeholder="Correo" class="form-control mb-2">
+  <input type="text" name="direccion" placeholder="Dirección" class="form-control mb-2">
+  <input type="text" name="telefono" placeholder="Teléfono" class="form-control mb-2">
+  <input type="number" name="experiencia" placeholder="Años de experiencia" class="form-control mb-2">
+  <input type="text" name="especialidad" placeholder="Especialidad" class="form-control mb-2">
+  <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}
+```
+
+### `ver_nutriologos.html`
+
+```django
+{% extends 'base.html' %}
+{% block content %}
+<h2>Lista de Nutriólogos</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for n in nutris %}
+    <tr>
+      <td>{{ n.id }}</td>
+      <td>{{ n.nombre }}</td>
+      <td>{{ n.apellido }}</td>
+      <td>{{ n.correo }}</td>
+      <td>{{ n.telefono }}</td>
+      <td>
+        <a href="/actualizar_nutriologo/{{ n.id }}/" class="btn btn-warning btn-sm">Editar</a>
+        <a href="/borrar_nutriologo/{{ n.id }}/" class="btn btn-danger btn-sm">Borrar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+```
+
+### `actualizar_nutriologo.html`
+
+```django
+{% extends 'base.html' %}
+{% block content %}
+<h2>Actualizar Nutriólogo</h2>
+<form method="POST" action="/realizar_actualizacion_nutriologo/{{ nutri.id }}/">
+  {% csrf_token %}
+  <input type="text" name="nombre" value="{{ nutri.nombre }}" class="form-control mb-2">
+  <input type="text" name="apellido" value="{{ nutri.apellido }}" class="form-control mb-2">
+  <input type="email" name="correo" value="{{ nutri.correo }}" class="form-control mb-2">
+  <input type="text" name="direccion" value="{{ nutri.direccion }}" class="form-control mb-2">
+  <input type="text" name="telefono" value="{{ nutri.telefono }}" class="form-control mb-2">
+  <input type="number" name="experiencia" value="{{ nutri.experiencia }}" class="form-control mb-2">
+  <input type="text" name="especialidad" value="{{ nutri.especialidad }}" class="form-control mb-2">
+  <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+{% endblock %}
+```
+
+### `borrar_nutriologo.html`
+
+```django
+{% extends 'base.html' %}
+{% block content %}
+<h2>Confirmar borrado</h2>
+<p>¿Deseas eliminar al nutriólogo <strong>{{ nutri.nombre }} {{ nutri.apellido }}</strong>?</p>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, borrar</button>
+  <a href="/ver_nutriologos/" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
+```
+
+> Nota: no estamos usando `forms.py` por tu indicación.
+
+---
+
+## 23) No utilizar `forms.py` (confirmado)
+
+Todas las plantillas usan formularios HTML normales y `request.POST` en las vistas.
+
+## 24) `app_clinicanutricional/urls.py` (crear)
+
+Crea `urls.py` dentro de la app con este contenido:
 
 ```python
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),
-    path('nutriologos/', views.lista_nutriologos, name='lista_nutriologos'),
-    path('crear_nutriologo/', views.crear_nutriologo, name='crear_nutriologo'),
-    path('editar_nutriologo/<int:id>/', views.editar_nutriologo, name='editar_nutriologo'),
-    path('eliminar_nutriologo/<int:id>/', views.eliminar_nutriologo, name='eliminar_nutriologo'),
+    path('', views.inicio_clinicanutricional, name='inicio_clinicanutricional'),
+    path('agregar_nutriologo/', views.agregar_nutriologo, name='agregar_nutriologo'),
+    path('ver_nutriologos/', views.ver_nutriologos, name='ver_nutriologos'),
+    path('actualizar_nutriologo/<int:id>/', views.actualizar_nutriologo, name='actualizar_nutriologo'),
+    path('realizar_actualizacion_nutriologo/<int:id>/', views.realizar_actualizacion_nutriologo, name='realizar_actualizacion_nutriologo'),
+    path('borrar_nutriologo/<int:id>/', views.borrar_nutriologo, name='borrar_nutriologo'),
 ]
 ```
 
-# 18 Enlazar las rutas al proyecto principal
+---
+
+## 25) Agregar `app_clinicanutricional` en `backend_clinicanutricional/settings.py`
+
+En `INSTALLED_APPS` agrega:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'app_clinicanutricional',
+]
+```
+
+---
+
+## 26) Configurar `backend_clinicanutricional/urls.py` para enlazar la app
+
+Edita `backend_clinicanutricional/urls.py` y deja algo así:
 
 ```python
 from django.contrib import admin
@@ -215,365 +534,112 @@ urlpatterns = [
 ]
 ```
 
-# 19 Crear carpeta templates
+---
 
-📁 app_clinicanutricional → 📁 templates → 📁 app_clinicanutricional
+## 27) Registrar modelos en `app_clinicanutricional/admin.py` y volver a migrar
 
-# 20 Configurar templates en settings.py
+Edita `admin.py`:
 
 ```python
-import os
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'app_clinicanutricional', 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+from django.contrib import admin
+from .models import Nutriologo, Paciente, Cita
+
+admin.site.register(Nutriologo)
+admin.site.register(Paciente)
+admin.site.register(Cita)
 ```
 
-# 21 Crear vistas en views.py
-    
-    ```python
-    from django.shortcuts import render, redirect, get_object_or_404
-    from .models import Nutriologo
-    
-    # ============================================================
-    # 🥕 VISTA DE INICIO
-    # ============================================================
-    def inicio(request):
-        return render(request, 'app_clinicanutricional/inicio.html')
-    
-    
-    # ============================================================
-    # 🌿 LISTAR NUTRIÓLOGOS
-    # ============================================================
-    def lista_nutriologos(request):
-        nutriologos = Nutriologo.objects.all()
-        return render(request, 'app_clinicanutricional/lista_nutriologos.html', {'nutriologos': nutriologos})
-    
-    
-    # ============================================================
-    # 🧡 CREAR NUTRIÓLOGO
-    # ============================================================
-    def crear_nutriologo(request):
-        if request.method == 'POST':
-            nombre = request.POST['nombre']
-            apellido = request.POST['apellido']
-            correo = request.POST['correo']
-            direccion = request.POST['direccion']
-            telefono = request.POST['telefono']
-            experiencia = request.POST['experiencia']
-            especialidad = request.POST['especialidad']
-    
-            Nutriologo.objects.create(
-                nombre=nombre,
-                apellido=apellido,
-                correo=correo,
-                direccion=direccion,
-                telefono=telefono,
-                experiencia=experiencia,
-                especialidad=especialidad
-            )
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/crear_nutriologo.html')
-    
-    
-    # ============================================================
-    # 🌸 EDITAR NUTRIÓLOGO
-    # ============================================================
-    def editar_nutriologo(request, id):
-        nutriologo = get_object_or_404(Nutriologo, id=id)
-        if request.method == 'POST':
-            nutriologo.nombre = request.POST['nombre']
-            nutriologo.apellido = request.POST['apellido']
-            nutriologo.correo = request.POST['correo']
-            nutriologo.direccion = request.POST['direccion']
-            nutriologo.telefono = request.POST['telefono']
-            nutriologo.experiencia = request.POST['experiencia']
-            nutriologo.especialidad = request.POST['especialidad']
-            nutriologo.save()
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/editar_nutriologo.html', {'nutriologo': nutriologo})
-    
-    
-    # ============================================================
-    # ❌ ELIMINAR NUTRIÓLOGO
-    # ============================================================
-    def eliminar_nutriologo(request, id):
-        nutriologo = get_object_or_404(Nutriologo, id=id)
-        if request.method == 'POST':
-            nutriologo.delete()
-            return redirect('lista_nutriologos')
-        return render(request, 'app_clinicanutricional/eliminar_nutriologo.html', {'nutriologo': nutriologo})
+Luego vuelve a ejecutar (si hiciste cambios en modelos):
 
-# 22 Crear los archivos HTML
-
-Ubicación: `app_clinicanutricional/templates/app_clinicanutricional/`
-
----
-
-## 📄 inicio.html
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Inicio - Baby Carrots</title>
-    <style>
-        body { background-color: #F6BBB7; text-align: center; font-family: Arial; }
-        h1 { color: #E5645E; }
-        a { color: #5b8740; text-decoration: none; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <h1>Bienvenida a Baby Carrots 🥕</h1>
-    <a href="{% url 'lista_nutriologos' %}">Ver Nutriólogos</a>
-</body>
-</html>
+```bash
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 ---
 
-## 📄 lista_nutriologos.html
+## 27 (bis) — Por ahora trabajar solo con NUTRIÓLOGOS
 
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Nutriólogos</title>
-    <style>
-        body { background-color: #F6BBB7; font-family: Arial; text-align: center; }
-        h1 { color: #E5645E; }
-        table { margin: auto; border-collapse: collapse; width: 80%; }
-        th, td { padding: 10px; border: 1px solid #5b8740; }
-        a, button { background-color: #5b8740; color: white; padding: 8px 15px; border: none; border-radius: 8px; text-decoration: none; margin: 5px; }
-        a:hover, button:hover { background-color: #E5645E; }
-    </style>
-</head>
-<body>
-    <h1>Lista de Nutriólogos 🩷</h1>
-    <a href="{% url 'crear_nutriologo' %}">Agregar Nutriólogo</a>
-    <table>
-        <tr>
-            <th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Acciones</th>
-        </tr>
-        {% for nut in nutriologos %}
-        <tr>
-            <td>{{ nut.nombre }} {{ nut.apellido }}</td>
-            <td>{{ nut.correo }}</td>
-            <td>{{ nut.telefono }}</td>
-            <td>
-                <a href="{% url 'editar_nutriologo' nut.id %}">Editar</a>
-                <a href="{% url 'eliminar_nutriologo' nut.id %}">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+Como solicitaste, dejamos los modelos de Pacientes y Citas definidos pero **pendientes** para implementar su CRUD después.
+
+---
+
+## 28) Estilos y colores
+
+Usamos Bootstrap y una paleta suave: encabezados y barras con verde `#5b8740` (ya puesto en `navbar.html`) — el resto lo maneja Bootstrap para mantener un diseño limpio y moderno.
+
+> No validamos entradas (tal como pediste).
+
+---
+
+## 29) Estructura inicial de carpetas y archivos (crear al inicio)
+
+```
+UIII_Clinicanutricional_8313/
+│
+├── .venv/
+│
+├── backend_clinicanutricional/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── app_clinicanutricional/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │    └── __init__.py
+│   └── templates/
+│        ├── base.html
+│        ├── header.html
+│        ├── navbar.html
+│        ├── footer.html
+│        ├── inicio.html
+│        └── nutriologos/
+│             ├── agregar_nutriologo.html
+│             ├── ver_nutriologos.html
+│             ├── actualizar_nutriologo.html
+│             └── borrar_nutriologo.html
+│
+├── db.sqlite3
+└── manage.py
 ```
 
 ---
 
-## 📄 crear_nutriologo.html
+## 30) Proyecto totalmente funcional (con Nutriólogos CRUD)
 
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Crear Nutriólogo</title>
-    <style>
-        body { background-color: #F6BBB7; text-align: center; font-family: Arial; }
-        form { background-color: white; padding: 20px; margin: 20px auto; width: 50%; border-radius: 15px; }
-        input, button { margin: 5px; padding: 10px; width: 90%; border-radius: 8px; border: 1px solid #ccc; }
-        button { background-color: #5b8740; color: white; }
-        button:hover { background-color: #E5645E; }
-    </style>
-</head>
-<body>
-    <h1>Agregar Nutriólogo 🥕</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="nombre" placeholder="Nombre" required>
-        <input type="text" name="apellido" placeholder="Apellido" required>
-        <input type="email" name="correo" placeholder="Correo" required>
-        <input type="text" name="direccion" placeholder="Dirección" required>
-        <input type="text" name="telefono" placeholder="Teléfono" required>
-        <input type="number" name="experiencia" placeholder="Años de experiencia" required>
-        <input type="text" name="especialidad" placeholder="Especialidad" required>
-        <button type="submit">Guardar</button>
-    </form>
-    <a href="{% url 'lista_nutriologos' %}">Volver</a>
-</body>
-</html>
-```
+Sigue los pasos anteriores en orden y deberías tener el CRUD de Nutriólogos listo y funcionando.
 
----
+## 31) Ejecutar servidor final en puerto 8313
 
-## 📄 editar_nutriologo.html
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Nutriólogo</title>
-    <style>
-        body { background-color: #F6BBB7; text-align: center; font-family: Arial; }
-        form { background-color: white; padding: 20px; margin: 20px auto; width: 50%; border-radius: 15px; }
-        input, button { margin: 5px; padding: 10px; width: 90%; border-radius: 8px; border: 1px solid #ccc; }
-        button { background-color: #5b8740; color: white; }
-        button:hover { background-color: #E5645E; }
-    </style>
-</head>
-<body>
-    <h1>Editar Nutriólogo 🌿</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="nombre" value="{{ nutriologo.nombre }}" required>
-        <input type="text" name="apellido" value="{{ nutriologo.apellido }}" required>
-        <input type="email" name="correo" value="{{ nutriologo.correo }}" required>
-        <input type="text" name="direccion" value="{{ nutriologo.direccion }}" required>
-        <input type="text" name="telefono" value="{{ nutriologo.telefono }}" required>
-        <input type="number" name="experiencia" value="{{ nutriologo.experiencia }}" required>
-        <input type="text" name="especialidad" value="{{ nutriologo.especialidad }}" required>
-        <button type="submit">Actualizar</button>
-    </form>
-    <a href="{% url 'lista_nutriologos' %}">Volver</a>
-</body>
-</html>
-```
-
----
-
-## 📄 eliminar_nutriologo.html
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Eliminar Nutriólogo</title>
-    <style>
-        body { background-color: #F6BBB7; text-align: center; font-family: Arial; }
-        button { background-color: #E5645E; color: white; padding: 10px 20px; border: none; border-radius: 10px; margin: 10px; }
-        a { background-color: #5b8740; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; }
-        a:hover, button:hover { opacity: 0.8; }
-    </style>
-</head>
-<body>
-    <h1>Eliminar Nutriólogo ❌</h1>
-    <p>¿Seguro que deseas eliminar a <b>{{ nutriologo.nombre }} {{ nutriologo.apellido }}</b>?</p>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Eliminar</button>
-        <a href="{% url 'lista_nutriologos' %}">Cancelar</a>
-    </form>
-</body>
-</html>
-```
-
----
-
-# 23 Probar CRUD completo
+Para iniciar el sitio ya con los cambios ejecuta:
 
 ```bash
 python manage.py runserver 8313
 ```
 
-Rutas:
+Visita:
 
-* `/` → Inicio
-* `/nutriologos/` → Lista
-* `/crear_nutriologo/` → Crear
-* `/editar_nutriologo/id` → Editar
-* `/eliminar_nutriologo/id` → Eliminar
+```
+http://127.0.0.1:8313/
+```
 
 ---
 
-# 24 Crear carpeta static
+### Notas finales
 
-📁 app_clinicanutricional/static/app_clinicanutricional/css
+* No se validan entradas (tal como pediste). Ten en cuenta que `correo` está definido como único en el modelo; si intentas insertar dos registros con el mismo correo, Django lanzará un error de integridad.
+* Si quieres que implemente también los CRUD para `Pacientes` y `Citas` (vistas, templates y urls), dímelo y los agrego.
+* Si quieres que cambie colores, logotipo o textos (por ejemplo tu nombre en el footer), lo actualizo.
 
-# 25 Configurar carpeta static
+¡Listo! El proyecto está descrito paso a paso y con todos los archivos necesarios para tener el CRUD de **Nutriólogos** funcionando en Django.
 
-```python
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'app_clinicanutricional/static')]
-```
-
-# 26 Confirmar diseño Baby Carrots
-
-🍑 Fondo: #F6BBB7
-🥕 Encabezado: #E5645E
-🌿 Botones: #5b8740
-
-# 27 Agregar app “Pacientes” (en pausa)
-
-# 28 Agregar app “Citas” (en pausa)
-
-# 29 Verificar panel admin
-
-👉 [http://127.0.0.1:8313/admin/](http://127.0.0.1:8313/admin/)
-
-# 30 Guardar en GitHub
-
-```bash
-git init
-git add .
-git commit -m "Proyecto Clinicanutricional con CRUD Nutriologos completo"
-```
-
-# 31 Proyecto Finalizado ✅
-    UIII_Clinicanutricional_8313/
-    │
-    ├── backend_clinicanutricional/
-    │   ├── __init__.py
-    │   ├── asgi.py
-    │   ├── settings.py          ← Configuraciones del proyecto
-    │   ├── urls.py              ← Enlaces globales (admin + app principal)
-    │   └── wsgi.py
-    │
-    ├── app_clinicanutricional/
-    │   ├── __init__.py
-    │   ├── admin.py             ← Modelos registrados (Nutriólogos, Pacientes, Citas)
-    │   ├── apps.py
-    │   ├── models.py            ← Los tres modelos principales
-    │   ├── views.py             ← CRUD completo de Nutriólogos
-    │   ├── urls.py              ← Rutas internas de la app
-    │   ├── migrations/
-    │   │   └── 0001_initial.py  ← Migraciones automáticas
-    │   │
-    │   ├── templates/
-    │   │   └── app_clinicanutricional/
-    │   │       ├── inicio.html                ← Página de bienvenida
-    │   │       ├── lista_nutriologos.html     ← Tabla con todos los nutriólogos
-    │   │       ├── crear_nutriologo.html      ← Formulario para agregar nuevo
-    │   │       ├── editar_nutriologo.html     ← Formulario para editar
-    │   │       └── eliminar_nutriologo.html   ← Confirmación para borrar
-    │   │
-    │   └── static/
-    │       └── app_clinicanutricional/
-    │           └── css/
-    │               └── estilos.css            ← Colores y diseño “Baby Carrots”
-    │
-    ├── db.sqlite3               ← Base de datos SQLite
-    ├── manage.py
-    └── .venv/                   ← Entorno virtual (bibliotecas de Django)
-
-🎉 CRUD completo de Nutriólogos funcional
-🩷 Modelos de Pacientes y Citas listos para continuar
-🌿 Colores suaves y estilo “Baby Carrots”
-
+--
+*Creado para Keyla Palacios — Clinicanutricional (UIII_Clinicanutricional_8313)*
