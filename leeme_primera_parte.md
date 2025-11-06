@@ -633,11 +633,6 @@ http://127.0.0.1:8313/
 
 ---
 
-### Notas finales
-
-* No se validan entradas (tal como pediste). Ten en cuenta que `correo` está definido como único en el modelo; si intentas insertar dos registros con el mismo correo, Django lanzará un error de integridad.
-* Si quieres que implemente también los CRUD para `Pacientes` y `Citas` (vistas, templates y urls), dímelo y los agrego.
-* Si quieres que cambie colores, logotipo o textos (por ejemplo tu nombre en el footer), lo actualizo.
 
 ¡Listo! El proyecto está descrito paso a paso y con todos los archivos necesarios para tener el CRUD de **Nutriólogos** funcionando en Django.
 
